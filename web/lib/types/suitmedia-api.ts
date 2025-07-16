@@ -1,22 +1,31 @@
 export interface Post {
-	id: number;
-	title: string;
-	slug: string;
-	content: string | React.ReactNode;
-	published_at: string;
-	created_at: string;
-	deleted_at: string | null;
-	updated_at: string;
+  id: number;
+  title: string;
+  slug: string;
+  content: string | React.ReactNode;
+  small_image?: Image;
+  medium_image?: Image;
+  published_at: string;
+  created_at: string;
+  deleted_at: string | null;
+  updated_at: string;
 }
 
 /**
  * Represents the pagination links for direct navigation.
  */
 export interface Links {
-	first: string | null;
-	last: string | null;
-	prev: string | null;
-	next: string | null;
+  first: string | null;
+  last: string | null;
+  prev: string | null;
+  next: string | null;
+}
+
+export interface Image {
+  id: number;
+  url: string;
+  file_name: string;
+  mime: string;
 }
 
 /**
@@ -24,30 +33,30 @@ export interface Links {
  * often used for building pagination UI components.
  */
 export interface MetaLink {
-	url: string | null;
-	label: string;
-	active: boolean;
+  url: string | null;
+  label: string;
+  active: boolean;
 }
 
 /**
  * Contains metadata about the paginated response.
  */
 export interface Meta {
-	current_page: number;
-	from: number;
-	last_page: number;
-	links: MetaLink[];
-	path: string;
-	per_page: number;
-	to: number;
-	total: number;
+  current_page: number;
+  from: number;
+  last_page: number;
+  links: MetaLink[];
+  path: string;
+  per_page: number;
+  to: number;
+  total: number;
 }
 
 /**
  * The main interface for the entire API response.
  */
 export interface ApiResponse {
-	data: Post[];
-	links: Links;
-	meta: Meta;
+  data: Post[];
+  links: Links;
+  meta: Meta;
 }

@@ -1,5 +1,5 @@
 const NavbarResolver = () => {
-	return <div className="bg-orange-400 h-25" />;
+  return <div className="bg-primary h-25" />;
 };
 
 export default NavbarResolver;

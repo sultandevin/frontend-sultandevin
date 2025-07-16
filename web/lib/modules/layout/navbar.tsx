@@ -6,54 +6,55 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const NAV_LINKS = [
-	{
-		href: "/work",
-		label: "Work",
-	},
-	{
-		href: "/about",
-		label: "Services",
-	},
-	{
-		href: "/ideas",
-		label: "Ideas",
-	},
-	{
-		href: "/careers",
-		label: "Careers",
-	},
-	{
-		href: "/contact",
-		label: "Contact",
-	},
+  {
+    href: "/work",
+    label: "Work",
+  },
+  {
+    href: "/about",
+    label: "Services",
+  },
+  {
+    href: "/ideas",
+    label: "Ideas",
+  },
+  {
+    href: "/careers",
+    label: "Careers",
+  },
+  {
+    href: "/contact",
+    label: "Contact",
+  },
 ];
 
 const Navbar = () => {
-	const pathname = usePathname();
+  const pathname = usePathname();
 
-	return (
-		<nav className="fixed top-0 inset-x-0 bg-orange-400/80 z-50 backdrop-blur-sm h-25 flex items-center text-white">
-			<Container className="flex-row justify-between py-0 items-center">
-				<Link href={`/`}>
-					<h1 className="text-lg font-bold">Logo</h1>
-				</Link>
+  return (
+    <nav className="bg-primary/80 h-25 fixed inset-x-0 top-0 z-50 flex items-center text-white backdrop-blur-sm">
+      <Container className="flex-row items-center justify-between py-0">
+        <Link href={`/`}>
+          <h1 className="text-lg font-bold">Logo</h1>
+        </Link>
 
-				<div>
-					{NAV_LINKS.map((link) => (
-						<Link
-							key={link.href}
-							href={link.href}
-							className={cn(
-								buttonVariants({ variant: "link", size: "sm" }),
-								pathname === link.href && "underline"
-							)}>
-							{link.label}
-						</Link>
-					))}
-				</div>
-			</Container>
-		</nav>
-	);
+        <div>
+          {NAV_LINKS.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className={cn(
+                buttonVariants({ variant: "link", size: "sm" }),
+                pathname === link.href && "underline",
+              )}
+            >
+              {link.label}
+            </Link>
+          ))}
+        </div>
+      </Container>
+    </nav>
+  );
 };
 
 export default Navbar;

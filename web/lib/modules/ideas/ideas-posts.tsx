@@ -2,8 +2,7 @@ import Container from "@/components/ui/container";
 import { ApiResponse } from "@/lib/types/suitmedia-api";
 import Image from "next/image";
 import Link from "next/link";
-import PerPageFilter from "./filters/per-page-filter";
-import SortByFilter from "./filters/sort-by-filter";
+import PaginationFilter from "./filters/pagination-filter";
 
 const IdeasPosts = async (props: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
@@ -11,6 +10,7 @@ const IdeasPosts = async (props: {
   const searchParams = await props.searchParams;
 
   const url = new URL(process.env.SUITMEDIA_API_URL!);
+  url.searchParams.append("append[]", "small_image");
 
   Object.entries(searchParams).forEach(([key, value]) => {
     if (value !== undefined) {
@@ -47,9 +47,7 @@ const IdeasPosts = async (props: {
         ))}
       </div>
 
-      <div className="mt-8 flex items-center justify-center">
-        {posts.meta.current_page}
-      </div>
+      <PaginationFilter posts={posts} />
     </Container>
   );
 };
@@ -62,7 +60,7 @@ const PostCard = ({ post }: { post: ApiResponse["data"][0] }) => {
     >
       <div className="relative h-40 overflow-clip bg-neutral-500">
         <Image
-          src={`/placeholder.webp`}
+          src={post.small_image?.url || "/placeholder.webp"}
           alt={post.title}
           className="object-cover transition-transform duration-300 ease-out group-hover:scale-105"
           sizes="20%"

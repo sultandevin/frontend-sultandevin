@@ -1,6 +1,6 @@
 import IdeasPosts from "@/lib/modules/ideas/ideas-posts";
 
-const IdeasPage = (props: {
+const IdeasPage = async (props: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) => {
   return (

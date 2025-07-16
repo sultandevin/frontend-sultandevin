@@ -20,6 +20,9 @@ const PerPageFilter = () => {
     }
   }
 
+  // Always reset to first page
+  queryObj["page[number]"] = "1";
+
   const perPage = searchParams.get(PER_PAGE_OPTIONS[0].query) || "30";
 
   return (
@@ -37,6 +40,7 @@ const PerPageFilter = () => {
                 [option.query]: option.value,
               },
             }}
+            replace
           >
             <DropdownSelectItem value={option.value}>
               {option.value}

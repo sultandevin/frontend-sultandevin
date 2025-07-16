@@ -37,6 +37,7 @@ const SortByFilter = () => {
                 [option.query]: option.value,
               },
             }}
+            replace
           >
             <DropdownSelectItem value={option.label}>
               {option.label}

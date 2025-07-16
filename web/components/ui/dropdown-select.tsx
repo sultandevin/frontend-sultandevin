@@ -7,9 +7,7 @@ import { cn } from "@/utils/cn";
 interface DropdownSelectProps {
   children: React.ReactNode;
   defaultValue?: string;
-  placeholder?: string;
   className?: string;
-  size?: "sm" | "md" | "lg";
 }
 
 interface DropdownSelectItemProps {
@@ -44,9 +42,7 @@ const DropdownSelectContext = React.createContext<{
 const DropdownSelect = ({
   children,
   defaultValue,
-  placeholder,
   className,
-  size = "md",
 }: DropdownSelectProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState(defaultValue || "");
