@@ -15,3 +15,7 @@ services:
             interval: 5s
             timeout: 2s
             retries: 20
+
+volumes:
+    cms-data:
+        driver: local

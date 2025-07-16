@@ -3,6 +3,7 @@ import { buttonVariants } from "@/components/ui/button";
 import Container from "@/components/ui/container";
 import { cn } from "@/utils/cn";
 import { useMotionValueEvent, useScroll } from "motion/react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -52,13 +53,19 @@ const Navbar = () => {
   return (
     <nav
       className={cn(
-        "h-25 bg-primary/80 fixed inset-x-0 top-0 z-50 flex items-center text-white backdrop-blur-sm transition-transform duration-300 ease-out",
+        "bg-primary/80 fixed inset-x-0 top-0 z-50 flex h-25 items-center text-white backdrop-blur-sm transition-transform duration-300 ease-out",
         isScrolled && scrollDirection === "down" && "-translate-y-full",
       )}
     >
       <Container className="flex-row items-center justify-between py-0">
         <Link href={`/`}>
-          <h1 className="text-lg font-bold">Logo</h1>
+          <Image
+            src="/logo.webp"
+            alt="Suitmedia Logo"
+            width={100}
+            height={100}
+            className="pointer-events-none brightness-0 invert select-none"
+          />
         </Link>
 
         <div>
