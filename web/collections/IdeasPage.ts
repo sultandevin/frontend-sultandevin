@@ -2,6 +2,11 @@ import { CollectionConfig } from "payload";
 
 export const IdeasPage: CollectionConfig = {
   slug: "ideas",
+  admin: {
+    livePreview: {
+      url: process.env.NEXT_PUBLIC_BASE_URL + "/ideas",
+    },
+  },
   fields: [
     {
       name: "heading",

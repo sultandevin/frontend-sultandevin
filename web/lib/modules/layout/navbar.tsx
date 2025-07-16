@@ -1,7 +1,17 @@
 "use client";
-import { buttonVariants } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import Container from "@/components/ui/container";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import { cn } from "@/utils/cn";
+import { Menu } from "lucide-react";
 import { useMotionValueEvent, useScroll } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -47,7 +57,6 @@ const Navbar = () => {
     }
 
     setIsScrolled(current > 100);
-    console.log(diff);
   });
 
   return (
@@ -68,23 +77,64 @@ const Navbar = () => {
           />
         </Link>
 
-        <div>
-          {NAV_LINKS.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={cn(
-                buttonVariants({ variant: "link", size: "sm" }),
-                pathname.startsWith(link.href) && "font-bold underline",
-              )}
-            >
-              {link.label}
-            </Link>
-          ))}
-        </div>
+        <DesktopLinks pathname={pathname} />
+        <MobileLinks pathname={pathname} />
       </Container>
     </nav>
   );
 };
+
+const DesktopLinks = (props: { pathname: string }) => (
+  <div className="hidden items-center md:flex">
+    {NAV_LINKS.map((link) => (
+      <Link
+        key={link.href}
+        href={link.href}
+        className={cn(
+          buttonVariants({ variant: "link", size: "sm" }),
+          props.pathname.startsWith(link.href) && "font-bold underline",
+        )}
+      >
+        {link.label}
+      </Link>
+    ))}
+  </div>
+);
+
+const MobileLinks = (props: { pathname: string }) => (
+  <div className="md:hidden">
+    <Sheet>
+      <SheetTrigger asChild>
+        <Button variant={`ghost`}>
+          <Menu className="text-white" />
+        </Button>
+      </SheetTrigger>
+      <SheetContent className="flex flex-col items-start justify-between px-8 pt-[15vh] pb-[10vh] *:text-start">
+        <SheetHeader>
+          <SheetTitle className="sr-only">Sidebar</SheetTitle>
+          <SheetDescription className="sr-only">
+            Description for sidebar
+          </SheetDescription>
+        </SheetHeader>
+        <main className="flex h-full w-full flex-col justify-between gap-8 text-lg font-semibold text-black">
+          <section className="flex flex-col gap-2">
+            {NAV_LINKS.map((nav, i) => (
+              <Link
+                key={i}
+                href={nav.href}
+                className={cn(
+                  "font-normal",
+                  props.pathname.startsWith(nav.href) && "font-bold",
+                )}
+              >
+                <SheetClose>{nav.label}</SheetClose>
+              </Link>
+            ))}
+          </section>
+        </main>
+      </SheetContent>
+    </Sheet>
+  </div>
+);
 
 export default Navbar;

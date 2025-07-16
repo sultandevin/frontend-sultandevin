@@ -20,7 +20,6 @@ const PostPage = async ({ params }: { params: Promise<{ post: string }> }) => {
   }
 
   const post: Post = (await data.json()).data;
-  console.log(post);
 
   return (
     <main className="relative">
