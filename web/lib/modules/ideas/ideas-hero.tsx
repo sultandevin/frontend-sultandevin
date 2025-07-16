@@ -18,35 +18,24 @@ const IdeasHero = () => {
     offset: ["start start", "end start"],
   });
 
-  const y = useParallax(scrollYProgress, 50);
+  const y = useParallax(scrollYProgress, 100);
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   return (
     <section ref={ref} className="relative overflow-hidden">
       <NavbarResolver />
       <Container className="relative z-10 min-h-[40vh] items-center justify-center text-white">
-        <motion.h1
-          className="text-4xl font-bold"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          Ideas
-        </motion.h1>
-        <motion.h2
-          className=""
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-        >
-          Where all our great things begin
-        </motion.h2>
+        <motion.div className="flex flex-col items-center" style={{ opacity }}>
+          <h1 className="text-4xl font-bold">Ideas</h1>
+          <h2 className="">Where all our great things begin</h2>
+        </motion.div>
       </Container>
 
       <motion.div className="absolute inset-0 -z-10" style={{ y }}>
         <Image
           src={`/placeholder.webp`}
           alt="Ideas Image"
-          className="translate-y-15 pointer-events-none select-none object-cover"
+          className="translate-y-30 pointer-events-none select-none object-cover"
           fill
           sizes="100%"
           priority
