@@ -7,11 +7,10 @@ import {
   DropdownSelectValue,
 } from "@/components/ui/dropdown-select";
 import { PER_PAGE_OPTIONS } from "@/lib/constants/filters";
-import { ApiResponse } from "@/lib/types/suitmedia-api";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 
-const PerPageFilter = (props: { posts: ApiResponse }) => {
+const PerPageFilter = () => {
   const searchParams = useSearchParams();
   const queryObj: { [key: string]: string } = {};
 
@@ -21,8 +20,10 @@ const PerPageFilter = (props: { posts: ApiResponse }) => {
     }
   }
 
+  const perPage = searchParams.get(PER_PAGE_OPTIONS[0].query) || "30";
+
   return (
-    <DropdownSelect defaultValue={props.posts.meta.per_page.toString()}>
+    <DropdownSelect defaultValue={perPage}>
       <DropdownSelectTrigger size="sm" className="w-[150px]">
         <DropdownSelectValue />
       </DropdownSelectTrigger>

@@ -35,23 +35,10 @@ const IdeasPosts = async (props: {
   }).then((res) => res.json());
 
   return (
-    <Container>
-      <div className="flex gap-8">
-        <div>
-          Showing <strong>{posts.meta.from}</strong> -{" "}
-          <strong>{posts.meta.to}</strong> of{" "}
-          <strong>{posts.meta.total}</strong>
-        </div>
-
-        <div className="ml-auto flex items-center gap-1">
-          Show per page:
-          <PerPageFilter posts={posts} />
-        </div>
-
-        <div className="flex items-center gap-1">
-          Sort by:
-          <SortByFilter posts={posts} />
-        </div>
+    <Container className="relative pt-8">
+      <div className="absolute -top-7 left-4 sm:left-8">
+        Showing <strong>{posts.meta.from}</strong> -{" "}
+        <strong>{posts.meta.to}</strong> of <strong>{posts.meta.total}</strong>
       </div>
 
       <div className="grid grid-cols-1 gap-8 md:grid-cols-4">

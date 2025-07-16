@@ -7,11 +7,10 @@ import {
   DropdownSelectValue,
 } from "@/components/ui/dropdown-select";
 import { SORT_BY_OPTIONS } from "@/lib/constants/filters";
-import { ApiResponse } from "@/lib/types/suitmedia-api";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 
-const SortByFilter = (props: { posts: ApiResponse }) => {
+const SortByFilter = () => {
   const searchParams = useSearchParams();
   const queryObj: { [key: string]: string } = {};
 
@@ -21,8 +20,10 @@ const SortByFilter = (props: { posts: ApiResponse }) => {
     }
   }
 
+  const sortBy = searchParams.get(SORT_BY_OPTIONS[0].query) || "Newest";
+
   return (
-    <DropdownSelect defaultValue="Newest">
+    <DropdownSelect defaultValue={sortBy}>
       <DropdownSelectTrigger size="sm" className="w-[150px]">
         <DropdownSelectValue />
       </DropdownSelectTrigger>
