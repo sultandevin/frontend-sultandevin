@@ -20,6 +20,7 @@ const IdeasHero = () => {
 
   const y = useParallax(scrollYProgress, 100);
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.8]);
 
   return (
     <section ref={ref} className="relative overflow-hidden">
@@ -27,7 +28,7 @@ const IdeasHero = () => {
       <Container className="relative z-10 min-h-[40vh] items-center justify-center text-white">
         <motion.div
           className="flex translate-y-25 flex-col items-center"
-          style={{ y, opacity }}
+          style={{ y, opacity, scale }}
         >
           <h1 className="text-4xl font-bold">Ideas</h1>
           <h2 className="">Where all our great things begin</h2>

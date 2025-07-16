@@ -2,7 +2,7 @@ export interface Post {
   id: number;
   title: string;
   slug: string;
-  content: string | React.ReactNode;
+  content: string;
   small_image?: Image;
   medium_image?: Image;
   published_at: string;

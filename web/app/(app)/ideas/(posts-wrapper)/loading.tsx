@@ -4,7 +4,7 @@ const LoadingPostsPage = () => {
   return (
     <Container className="relative pt-8">
       <div className="absolute -top-6 left-4 h-8 w-60 animate-pulse rounded-lg bg-neutral-200 sm:left-8" />
-      <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
+      <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-4">
         {Array.from({ length: 8 }).map((_, index) => (
           <LoadingPostCard key={index} />
         ))}

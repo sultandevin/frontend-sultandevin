@@ -75,7 +75,7 @@ const Navbar = () => {
               href={link.href}
               className={cn(
                 buttonVariants({ variant: "link", size: "sm" }),
-                pathname === link.href && "font-bold underline",
+                pathname.startsWith(link.href) && "font-bold underline",
               )}
             >
               {link.label}

@@ -89,7 +89,7 @@ const DropdownSelectTrigger = ({
   return (
     <button
       className={cn(
-        "border-input bg-background ring-offset-background placeholder:text-muted-foreground focus:ring-ring flex w-full items-center justify-between rounded-2xl border text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+        "border-input bg-background ring-offset-background placeholder:text-muted-foreground focus:ring-ring flex w-full items-center justify-between rounded-2xl border text-sm transition-colors focus:ring-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50",
         sizeClasses[size],
         className,
       )}
@@ -117,7 +117,7 @@ const DropdownSelectContent = ({
   return (
     <div
       className={cn(
-        "bg-popover text-popover-foreground absolute z-50 mt-1 w-full min-w-[8rem] overflow-hidden rounded-md border p-1 shadow-md transition-all duration-200 ease-in-out",
+        "bg-popover text-popover-foreground absolute z-50 mt-1 w-full min-w-[8rem] space-y-1 overflow-hidden rounded-2xl border p-1 shadow-md transition-all duration-200 ease-in-out",
         isOpen
           ? "translate-y-0 scale-100 opacity-100"
           : "pointer-events-none translate-y-1 scale-95 opacity-0",
@@ -141,7 +141,7 @@ const DropdownSelectItem = ({
   return (
     <div
       className={cn(
-        "hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground relative flex cursor-pointer select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+        "hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground relative flex cursor-pointer items-center rounded-2xl px-2 py-1.5 text-sm transition-colors outline-none select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
         selectedValue === value && "bg-accent text-accent-foreground",
         className,
       )}
