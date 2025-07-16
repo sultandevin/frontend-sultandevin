@@ -1,3 +1,4 @@
+"use client";
 import {
   DropdownSelect,
   DropdownSelectContent,
@@ -8,8 +9,18 @@ import {
 import { SORT_BY_OPTIONS } from "@/lib/constants/filters";
 import { ApiResponse } from "@/lib/types/suitmedia-api";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
 const SortByFilter = (props: { posts: ApiResponse }) => {
+  const searchParams = useSearchParams();
+  const queryObj: { [key: string]: string } = {};
+
+  for (const [key, value] of searchParams.entries()) {
+    if (key !== SORT_BY_OPTIONS[0].query) {
+      queryObj[key] = value;
+    }
+  }
+
   return (
     <DropdownSelect defaultValue="Newest">
       <DropdownSelectTrigger size="sm" className="w-[150px]">
@@ -21,6 +32,7 @@ const SortByFilter = (props: { posts: ApiResponse }) => {
             key={option.value}
             href={{
               query: {
+                ...queryObj,
                 [option.query]: option.value,
               },
             }}

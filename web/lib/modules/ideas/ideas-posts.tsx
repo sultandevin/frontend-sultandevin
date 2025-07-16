@@ -8,9 +8,27 @@ import SortByFilter from "./filters/sort-by-filter";
 const IdeasPosts = async (props: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) => {
-  const posts: ApiResponse = await fetch(`${process.env.SUITMEDIA_API_URL}`, {
+  const searchParams = await props.searchParams;
+
+  const url = new URL(process.env.SUITMEDIA_API_URL!);
+
+  Object.entries(searchParams).forEach(([key, value]) => {
+    if (value !== undefined) {
+      if (Array.isArray(value)) {
+        // Array values
+        value.forEach((v) => url.searchParams.append(key, v));
+      } else {
+        // String values
+        url.searchParams.set(key, value);
+      }
+    }
+  });
+
+  const posts: ApiResponse = await fetch(url.toString(), {
     method: "GET",
-    cache: "no-store",
+    next: {
+      revalidate: 200,
+    },
     headers: {
       Accept: "application/json",
     },
@@ -24,15 +42,6 @@ const IdeasPosts = async (props: {
           <strong>{posts.meta.to}</strong> of{" "}
           <strong>{posts.meta.total}</strong>
         </div>
-        <Link
-          href={{
-            query: {
-              "page[size]": 50,
-            },
-          }}
-        >
-          test
-        </Link>
 
         <div className="ml-auto flex items-center gap-1">
           Show per page:
@@ -49,6 +58,10 @@ const IdeasPosts = async (props: {
         {posts.data.map((post) => (
           <PostCard key={post.id} post={post} />
         ))}
+      </div>
+
+      <div className="mt-8 flex items-center justify-center">
+        {posts.meta.current_page}
       </div>
     </Container>
   );

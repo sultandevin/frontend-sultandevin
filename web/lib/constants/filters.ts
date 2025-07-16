@@ -17,11 +17,11 @@ export const SORT_BY_OPTIONS = [
   {
     label: "Oldest",
     query: "sort",
-    value: "-published_at",
+    value: "published_at",
   },
   {
     label: "Newest",
     query: "sort",
-    value: "published_at",
+    value: "-published_at",
   },
 ];
