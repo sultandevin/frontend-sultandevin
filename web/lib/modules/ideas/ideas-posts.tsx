@@ -2,6 +2,8 @@ import Container from "@/components/ui/container";
 import { ApiResponse } from "@/lib/types/suitmedia-api";
 import Image from "next/image";
 import Link from "next/link";
+import PerPageFilter from "./filters/per-page-filter";
+import SortByFilter from "./filters/sort-by-filter";
 
 const IdeasPosts = async (props: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
@@ -18,12 +20,29 @@ const IdeasPosts = async (props: {
     <Container>
       <div className="flex gap-8">
         <div>
-          Showing {posts.meta.from} - {posts.meta.to} of {posts.meta.total}
+          Showing <strong>{posts.meta.from}</strong> -{" "}
+          <strong>{posts.meta.to}</strong> of{" "}
+          <strong>{posts.meta.total}</strong>
+        </div>
+        <Link
+          href={{
+            query: {
+              "page[size]": 50,
+            },
+          }}
+        >
+          test
+        </Link>
+
+        <div className="ml-auto flex items-center gap-1">
+          Show per page:
+          <PerPageFilter posts={posts} />
         </div>
 
-        <div className="ml-auto">Show per page: {posts.meta.per_page}</div>
-
-        <div>Sort by:</div>
+        <div className="flex items-center gap-1">
+          Sort by:
+          <SortByFilter posts={posts} />
+        </div>
       </div>
 
       <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
