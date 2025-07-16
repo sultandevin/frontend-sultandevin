@@ -50,7 +50,7 @@ const Navbar = () => {
 
   useMotionValueEvent(scrollY, "change", (current) => {
     const diff = current - (scrollY?.getPrevious() ?? 0);
-    const threshold = 30;
+    const threshold = 10;
 
     if (Math.abs(diff) > threshold) {
       setScrollDirection(diff > 0 ? "down" : "up");
