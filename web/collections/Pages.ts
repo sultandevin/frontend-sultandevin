@@ -4,6 +4,14 @@ import type { CollectionConfig } from "payload";
 
 export const Pages: CollectionConfig = {
   slug: "pages",
+  admin: {
+    livePreview: {
+      url: ({ data }) => {
+        const isHomePage = data.slug === "home";
+        return `${process.env.NEXT_PUBLIC_BASE_URL}${!isHomePage ? `/${data.slug}` : ""}`;
+      },
+    },
+  },
   fields: [
     {
       name: "title",
