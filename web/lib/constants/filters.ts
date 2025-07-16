@@ -5,7 +5,7 @@ export const PER_PAGE_OPTIONS = [
   },
   {
     query: "page[size]",
-    value: "30",
+    value: "20",
   },
   {
     query: "page[size]",
