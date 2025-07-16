@@ -21,9 +21,9 @@ const PerPageFilter = () => {
   }
 
   // Always reset to first page
-  queryObj["page[number]"] = "1";
+  // queryObj["page[number]"] = "1";
 
-  const perPage = searchParams.get(PER_PAGE_OPTIONS[0].query) || "30";
+  const perPage = searchParams.get(PER_PAGE_OPTIONS[0].query) || "20";
 
   return (
     <DropdownSelect defaultValue={perPage}>

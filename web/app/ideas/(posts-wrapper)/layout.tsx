@@ -9,8 +9,8 @@ const PostsFilterWrapper = (props: { children: React.ReactNode }) => {
   return (
     <>
       <IdeasHero />
-      <Container className="flex-row gap-8 pb-0">
-        <div className="ml-auto flex items-center gap-1">
+      <Container className="items-end sm:flex-row sm:items-center sm:gap-8 sm:pb-0">
+        <div className="flex items-center gap-1 sm:ml-auto">
           Show per page:
           <Suspense fallback={null}>
             <PerPageFilter />

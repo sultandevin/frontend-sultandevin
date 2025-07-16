@@ -2,8 +2,10 @@
 import { buttonVariants } from "@/components/ui/button";
 import Container from "@/components/ui/container";
 import { cn } from "@/utils/cn";
+import { useMotionValueEvent, useScroll } from "motion/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
 
 const NAV_LINKS = [
   {
@@ -31,8 +33,29 @@ const NAV_LINKS = [
 const Navbar = () => {
   const pathname = usePathname();
 
+  const { scrollY } = useScroll();
+  const [scrollDirection, setScrollDirection] = useState<"down" | "up">("down");
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useMotionValueEvent(scrollY, "change", (current) => {
+    const diff = current - (scrollY?.getPrevious() ?? 0);
+    const threshold = 30;
+
+    if (Math.abs(diff) > threshold) {
+      setScrollDirection(diff > 0 ? "down" : "up");
+    }
+
+    setIsScrolled(current > 100);
+    console.log(diff);
+  });
+
   return (
-    <nav className="bg-primary/80 h-25 fixed inset-x-0 top-0 z-50 flex items-center text-white backdrop-blur-sm">
+    <nav
+      className={cn(
+        "h-25 bg-primary/80 fixed inset-x-0 top-0 z-50 flex items-center text-white backdrop-blur-sm transition-transform duration-300 ease-out",
+        isScrolled && scrollDirection === "down" && "-translate-y-full",
+      )}
+    >
       <Container className="flex-row items-center justify-between py-0">
         <Link href={`/`}>
           <h1 className="text-lg font-bold">Logo</h1>
@@ -45,7 +68,7 @@ const Navbar = () => {
               href={link.href}
               className={cn(
                 buttonVariants({ variant: "link", size: "sm" }),
-                pathname === link.href && "underline",
+                pathname === link.href && "font-bold underline",
               )}
             >
               {link.label}

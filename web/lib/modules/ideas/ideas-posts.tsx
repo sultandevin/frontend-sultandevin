@@ -3,6 +3,7 @@ import { ApiResponse } from "@/lib/types/suitmedia-api";
 import Image from "next/image";
 import Link from "next/link";
 import PaginationFilter from "./filters/pagination-filter";
+import { PER_PAGE_OPTIONS } from "@/lib/constants/filters";
 
 const IdeasPosts = async (props: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
@@ -10,6 +11,7 @@ const IdeasPosts = async (props: {
   const searchParams = await props.searchParams;
 
   const url = new URL(process.env.SUITMEDIA_API_URL!);
+  url.searchParams.set(PER_PAGE_OPTIONS[0].query, PER_PAGE_OPTIONS[1].value); // 20 as the default
   url.searchParams.append("append[]", "small_image");
 
   Object.entries(searchParams).forEach(([key, value]) => {
@@ -41,7 +43,7 @@ const IdeasPosts = async (props: {
         <strong>{posts.meta.to}</strong> of <strong>{posts.meta.total}</strong>
       </div>
 
-      <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
+      <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-4">
         {posts.data.map((post) => (
           <PostCard key={post.id} post={post} />
         ))}

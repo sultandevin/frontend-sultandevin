@@ -42,7 +42,7 @@ const PaginationFilter = (props: { posts: ApiResponse }) => {
   return (
     <Container className="flex items-center justify-center">
       <div className="flex items-center gap-3">
-        <Slot href={props.posts.links.last?.split("/").pop() || "/"}>
+        <Slot href={props.posts.links.first?.split("/").pop() || "/"}>
           <Button
             variant="link"
             size="none"
