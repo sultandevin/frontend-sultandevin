@@ -8,7 +8,9 @@ import { Suspense } from "react";
 const PostsFilterWrapper = (props: { children: React.ReactNode }) => {
   return (
     <>
-      <IdeasHero />
+      <Suspense fallback={null}>
+        <IdeasHero />
+      </Suspense>
       <Container className="items-end sm:flex-row sm:items-center sm:gap-8 sm:pb-0">
         <div className="flex items-center gap-1 sm:ml-auto">
           Show per page:

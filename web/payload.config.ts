@@ -9,6 +9,7 @@ import { fileURLToPath } from "url";
 import { Pages } from "./collections/Pages";
 import { Users } from "./collections/Users";
 import { Media } from "./collections/Media";
+import { IdeasPage } from "./collections/IdeasPage";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -37,13 +38,13 @@ export default buildConfig({
           height: 900,
         },
       ],
-      collections: ["pages"],
+      collections: ["pages", "ideas"],
     },
     importMap: {
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Pages],
+  collections: [Users, Media, Pages, IdeasPage],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || "",
   typescript: {

@@ -24,3 +24,14 @@ export const getPageBySlug = cache(
     tags: ["pages"],
   },
 );
+
+export const getIdeasPage = cache(async () => {
+  const {
+    docs: [ideasPage],
+  } = await payload.find({
+    collection: "ideas",
+    limit: 1,
+  });
+
+  return ideasPage;
+});
