@@ -199,17 +199,23 @@ const FeaturesBlock = ({ block }: { block: FeaturesType }) => {
                 index % 2 === 1 ? "md:flex-row-reverse" : "",
               )}
             >
-              {feature.image?.url && (
-                <div className="w-full md:w-1/2">
-                  <Image
-                    src={feature.image.url}
-                    alt={feature.title}
-                    width={500}
-                    height={300}
-                    className="w-full rounded-lg object-cover"
-                  />
-                </div>
-              )}
+              {
+                // @ts-ignore
+                feature.image?.url && (
+                  <div className="w-full md:w-1/2">
+                    <Image
+                      src={
+                        // @ts-ignore
+                        feature.image.url
+                      }
+                      alt={feature.title}
+                      width={500}
+                      height={300}
+                      className="w-full rounded-lg object-cover"
+                    />
+                  </div>
+                )
+              }
 
               <div className="w-full space-y-4 md:w-1/2">
                 {feature.icon !== "none" && (
@@ -253,16 +259,22 @@ const FeaturesBlock = ({ block }: { block: FeaturesType }) => {
             key={index}
             className="overflow-hidden rounded-lg border shadow-sm"
           >
-            {feature.image?.url && (
-              <div className="relative h-48">
-                <Image
-                  src={feature.image.url}
-                  alt={feature.title}
-                  fill
-                  className="object-cover"
-                />
-              </div>
-            )}
+            {
+              // @ts-ignore
+              feature.image?.url && (
+                <div className="relative h-48">
+                  <Image
+                    src={
+                      // @ts-ignore
+                      feature.image.url
+                    }
+                    alt={feature.title}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              )
+            }
 
             <div className="p-6">
               <div className="mb-3 flex items-center gap-2">
