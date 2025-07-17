@@ -13,3 +13,12 @@
 
 1. Edit and generate new pages via CMS with customizable sections. (`/admin`)
 2. Individual blog pages. (`/ideas/*`)
+
+## 🛠️ Tech Stack
+
+-   Next.js 15
+-   PayloadCMS 3
+-   Supabase PostgreSQL
+-   Vercel Blob Object Storage
+
+Deployed on [Vercel](https://vercel.com)
