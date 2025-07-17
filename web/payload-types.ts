@@ -168,9 +168,34 @@ export interface Page {
   id: number;
   title: string;
   slug: string;
-  layout: (Header | Accordion)[];
+  hero: Hero[];
+  layout: (Header | Accordion | CallToAction | ContentWithMedia | Features | Testimonials)[];
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Hero".
+ */
+export interface Hero {
+  variant: 'high-impact' | 'medium-impact' | 'small-impact';
+  heading: string;
+  subheading?: string | null;
+  backgroundImage: number | Media;
+  /**
+   * Call to action buttons (only for high and medium impact variants)
+   */
+  ctaButtons?:
+    | {
+        label: string;
+        link: string;
+        variant: 'default' | 'secondary' | 'outline';
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'hero';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -200,6 +225,120 @@ export interface Accordion {
   id?: string | null;
   blockName?: string | null;
   blockType: 'accordion';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CallToAction".
+ */
+export interface CallToAction {
+  heading: string;
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  alignment: 'left' | 'center' | 'right';
+  buttons: {
+    label: string;
+    link: string;
+    variant: 'default' | 'secondary' | 'outline' | 'ghost';
+    size: 'default' | 'sm' | 'lg';
+    id?: string | null;
+  }[];
+  backgroundColor: 'none' | 'light' | 'dark' | 'primary';
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'call-to-action';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContentWithMedia".
+ */
+export interface ContentWithMedia {
+  heading: string;
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  media: number | Media;
+  mediaPosition: 'left' | 'right';
+  background: 'none' | 'light' | 'dark';
+  button: {
+    text: string;
+    url: string;
+    variant: 'default' | 'secondary' | 'outline';
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'content-with-media';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Features".
+ */
+export interface Features {
+  heading: string;
+  subheading?: string | null;
+  layout: 'grid' | 'list' | 'cards';
+  features: {
+    title: string;
+    description: string;
+    icon: 'none' | 'lightbulb' | 'star' | 'heart' | 'shield' | 'rocket' | 'chart' | 'target' | 'settings';
+    /**
+     * Used in List and Cards layouts
+     */
+    image?: (number | null) | Media;
+    link: {
+      text: string;
+      url: string;
+    };
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'features';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Testimonials".
+ */
+export interface Testimonials {
+  heading: string;
+  subheading?: string | null;
+  layout: 'grid' | 'carousel' | 'featured';
+  testimonials: {
+    quote: string;
+    author: string;
+    title?: string | null;
+    avatar?: (number | null) | Media;
+    rating: '0' | '1' | '2' | '3' | '4' | '5';
+    id?: string | null;
+  }[];
+  backgroundColor: 'none' | 'light' | 'dark';
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'testimonials';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -325,14 +464,43 @@ export interface MediaSelect<T extends boolean = true> {
 export interface PagesSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
+  hero?:
+    | T
+    | {
+        hero?: T | HeroSelect<T>;
+      };
   layout?:
     | T
     | {
         header?: T | HeaderSelect<T>;
         accordion?: T | AccordionSelect<T>;
+        'call-to-action'?: T | CallToActionSelect<T>;
+        'content-with-media'?: T | ContentWithMediaSelect<T>;
+        features?: T | FeaturesSelect<T>;
+        testimonials?: T | TestimonialsSelect<T>;
       };
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Hero_select".
+ */
+export interface HeroSelect<T extends boolean = true> {
+  variant?: T;
+  heading?: T;
+  subheading?: T;
+  backgroundImage?: T;
+  ctaButtons?:
+    | T
+    | {
+        label?: T;
+        link?: T;
+        variant?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -358,6 +526,95 @@ export interface AccordionSelect<T extends boolean = true> {
         content?: T;
         id?: T;
       };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CallToAction_select".
+ */
+export interface CallToActionSelect<T extends boolean = true> {
+  heading?: T;
+  content?: T;
+  alignment?: T;
+  buttons?:
+    | T
+    | {
+        label?: T;
+        link?: T;
+        variant?: T;
+        size?: T;
+        id?: T;
+      };
+  backgroundColor?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContentWithMedia_select".
+ */
+export interface ContentWithMediaSelect<T extends boolean = true> {
+  heading?: T;
+  content?: T;
+  media?: T;
+  mediaPosition?: T;
+  background?: T;
+  button?:
+    | T
+    | {
+        text?: T;
+        url?: T;
+        variant?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Features_select".
+ */
+export interface FeaturesSelect<T extends boolean = true> {
+  heading?: T;
+  subheading?: T;
+  layout?: T;
+  features?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        icon?: T;
+        image?: T;
+        link?:
+          | T
+          | {
+              text?: T;
+              url?: T;
+            };
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Testimonials_select".
+ */
+export interface TestimonialsSelect<T extends boolean = true> {
+  heading?: T;
+  subheading?: T;
+  layout?: T;
+  testimonials?:
+    | T
+    | {
+        quote?: T;
+        author?: T;
+        title?: T;
+        avatar?: T;
+        rating?: T;
+        id?: T;
+      };
+  backgroundColor?: T;
   id?: T;
   blockName?: T;
 }
