@@ -6,6 +6,7 @@ import { cn } from "@/utils/cn";
 import { ContentWithMedia as ContentWithMediaType } from "@/payload-types";
 import Image from "next/image";
 import Link from "next/link";
+import { RichText } from "@payloadcms/richtext-lexical/react";
 
 const ContentWithMediaBlock = ({ block }: { block: ContentWithMediaType }) => {
   // Get background classes
@@ -33,10 +34,14 @@ const ContentWithMediaBlock = ({ block }: { block: ContentWithMediaType }) => {
         >
           {/* Media Section */}
           <div className="w-full md:w-1/2">
+            {/* @ts-ignore */}
             {block.media?.url && (
               <div className="relative aspect-video overflow-hidden rounded-lg">
                 <Image
-                  src={block.media.url}
+                  src={
+                    // @ts-ignore
+                    block.media.url
+                  }
                   alt={block.heading}
                   fill
                   className="object-cover"
@@ -49,12 +54,11 @@ const ContentWithMediaBlock = ({ block }: { block: ContentWithMediaType }) => {
           <div className="w-full space-y-4 md:w-1/2">
             <h2 className="text-3xl font-bold">{block.heading}</h2>
 
-            {/* Note: In a real implementation, you would need a richText serializer */}
-            <div dangerouslySetInnerHTML={{ __html: block.content }} />
+            <RichText data={block.content} />
 
             {block.button && (
               <div className="pt-4">
-                <Button variant={block.button.variant as any} asChild>
+                <Button variant={block.button.variant} asChild>
                   <Link href={block.button.url}>{block.button.text}</Link>
                 </Button>
               </div>
