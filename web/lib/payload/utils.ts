@@ -18,6 +18,21 @@ export const getPageBySlug = cache(
     return page;
   },
   // cache-key parts
+  [`pages-slug`],
+  {
+    revalidate: 300,
+    tags: ["pages"],
+  },
+);
+
+export const getPages = cache(
+  async () => {
+    const { docs: pages } = await payload.find({
+      collection: "pages",
+    });
+
+    return pages;
+  },
   ["pages-collection"],
   {
     revalidate: 300,

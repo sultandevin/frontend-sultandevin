@@ -5,9 +5,17 @@ import FeaturesBlock from "@/blocks/Features/Component";
 import HeaderBlock from "@/blocks/Header/Component";
 import HeroBlock from "@/blocks/Hero/Component";
 import TestimonialsBlock from "@/blocks/Testimonials/Component";
-import { getPageBySlug } from "@/lib/payload/utils";
+import { getPageBySlug, getPages } from "@/lib/payload/utils";
 import { Page } from "@/payload-types";
 import { notFound } from "next/navigation";
+
+export async function generateStaticParams() {
+  const pages = await getPages();
+
+  return pages.map((page) => ({
+    slug: page.slug,
+  }));
+}
 
 const DynamicPage = async ({
   params,
